@@ -23,7 +23,6 @@ Sistema completo (frontend + backend + banco) para **reservas de salas** com RBA
 - [Dicas de produção](#dicas-de-produção)
 - [Troubleshooting (erros comuns)](#troubleshooting-erros-comuns)
 - [Backup & Restore do banco](#backup--restore-do-banco)
-- [Docker (opcional)](#docker-opcional)
 
 ---
 
@@ -398,41 +397,3 @@ pg_restore -U app_user -d reserva_salas -c backup.dump
 
 > Em produção, faça backups automáticos e teste restores periodicamente.
 
----
-
-## Docker (opcional)
-
-Exemplo básico para banco + pgAdmin (arquivo `docker-compose.yml`):
-
-```yaml
-services:
-  db:
-    image: postgres:14
-    environment:
-      POSTGRES_DB: reserva_salas
-      POSTGRES_USER: app_user
-      POSTGRES_PASSWORD: app_password
-    ports: ["5432:5432"]
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@local
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports: ["5050:80"]
-    depends_on: [db]
-```
-
-Subir:
-
-```bash
-docker compose up -d
-```
-
-> A aplicação (backend/frontend) pode ser conteinerizada depois; em prod use **reverse proxy** (Nginx/Caddy), HTTPS, variáveis `.env` seguras e imagens multistage.
-
----
-
-**Pronto.** Esse README cobre do zero à produção. Se quiser, podemos gerar uma versão específica para o seu schema final (p. ex. fixando `usuario(id, senha_hash)`), assim você remove os fallbacks do backend e deixa tudo 100% tipado no Prisma.
