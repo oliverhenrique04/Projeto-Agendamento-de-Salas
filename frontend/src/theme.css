@@ -1,0 +1,165 @@
+/* =========================
+   UNIeuRO - Agenda de Salas
+   Ajustes visuais finos
+   Compatível com Bootswatch
+   ========================= */
+
+/* Base & layout */
+html, body, #root { height: 100%; }
+body {
+  background-color: var(--bs-gray-100);
+  color: var(--bs-body-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografia e títulos */
+h1,h2,h3,h4,h5,h6 { letter-spacing: .2px; }
+.card-header { font-weight: 600; }
+
+/* Navbar clara/escura conforme Bootswatch */
+.navbar { box-shadow: 0 2px 14px rgba(0,0,0,.06); }
+.navbar .nav-link { font-weight: 600; }
+.navbar .nav-link.active,
+.navbar .nav-link:hover { color: var(--bs-primary) !important; }
+
+/* Cards */
+:root { --radius-lg: 14px; --radius-md: 10px; }
+.card {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  background-color: var(--bs-body-bg);
+}
+
+/* Tabelas */
+.table td, .table th { vertical-align: middle; }
+.table thead th { font-weight: 700; border-bottom-width: 1px; }
+.table-hover tbody tr:hover { background-color: rgba(0,0,0,.03); }
+
+/* Botões */
+.btn { border-radius: var(--radius-md); font-weight: 600; }
+.btn-outline-primary { border-width: 2px; }
+.btn-outline-danger { border-width: 2px; }
+
+/* Formularios */
+.form-control, .form-select {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,.12);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 .25rem rgba(var(--bs-primary-rgb), .15);
+}
+
+/* Grids e gaps */
+.row.g-3 > * { margin-top: 0 !important; } /* evita saltos com Bootswatch */
+.gap-2 > * { margin-bottom: 0 !important; }
+
+/* Alinhamento da coluna de ações (Salas/Usuários) */
+.table td.actions { min-width: 220px; }
+.table td.actions .btn { white-space: nowrap; }
+
+/* React DatePicker */
+.react-datepicker-wrapper, .react-datepicker__input-container { width: 100%; }
+.react-datepicker {
+  border: 1px solid rgba(0,0,0,.12) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.react-datepicker__header {
+  background-color: var(--bs-body-bg) !important;
+  border-bottom: 1px solid rgba(0,0,0,.08) !important;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: var(--bs-primary) !important;
+}
+
+/* FullCalendar (tema bootstrap5 já ativo; refinamos) */
+.fc .fc-toolbar-title { font-weight: 800; letter-spacing: .2px; }
+.fc .fc-button {
+  border-radius: var(--radius-md);
+  border: 0;
+  box-shadow: 0 4px 14px rgba(0,0,0,.06);
+}
+.fc .fc-daygrid-event,
+.fc .fc-timegrid-event {
+  border: 0;
+  border-left: 4px solid var(--bs-primary);
+  border-radius: var(--radius-md);
+  padding: 2px 6px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.06);
+}
+.fc-theme-standard td, .fc-theme-standard th { border-color: rgba(0,0,0,.06); }
+.fc .fc-timegrid-slot { height: 2.25em; }
+
+/* Offcanvas (se usar futuramente) */
+.offcanvas { border-left: 1px solid rgba(0,0,0,.08); }
+
+/* Badges */
+.badge { border-radius: 8px; }
+
+/* Utilitários */
+.shadow-soft { box-shadow: 0 10px 24px rgba(0,0,0,.06) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+
+/* Corrige botões de ação quebrando linha em telas menores */
+@media (max-width: 576px) {
+  .table td.actions { min-width: 180px; }
+}
+
+/* ---- Ajustes específicos do seu markup atual ---- */
+
+/* Evita que classes antigas "grudentas" marquem os Cards e FormGroups */
+.app-navbar, .glassy, .sticky-top.shadow-sm { }
+.card .app-navbar, .card .glassy, .modal .app-navbar {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 0 !important;
+}
+
+/* Espaçamento do cabeçalho dos cards com subtítulo (Nova reserva / Agenda) */
+.card-header small { font-weight: 500; color: var(--bs-secondary-color); }
+
+/* Botão principal (Agendar) com presença visual */
+.btn-primary { box-shadow: 0 10px 24px rgba(var(--bs-primary-rgb), .25); }
+
+/* Placeholder animado (se usar) */
+.placeholder-wave {
+  background: linear-gradient(90deg, rgba(0,0,0,.04), rgba(0,0,0,.08), rgba(0,0,0,.04));
+  background-size: 200% 100%;
+  animation: wave 1.5s infinite linear;
+  border-radius: var(--radius-lg);
+}
+@keyframes wave { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }
+
+/* ===== Ajustes visuais do Modal ===== */
+
+/* Remove o retângulo claro atrás do modal */
+.modal-backdrop {
+  background-color: rgba(0,0,0,.55) !important; /* só escurece o fundo */
+  backdrop-filter: blur(2px); /* opcional, dá efeito de vidro fosco */
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove o "retângulo branco" que aparece atrás do modal */
+.modal-dialog {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* O conteúdo mantém só a sombra */
+.modal-content {
+  border: none !important;
+  background-color: var(--bs-body-bg) !important; /* fundo padrão do tema */
+  box-shadow: 0 10px 30px rgba(0,0,0,.3) !important;
+  border-radius: 14px !important;
+}
+

@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model usuario {
+  id_usuario Int         @id @default(autoincrement())
+  nome       String
+  email      String      @unique
+  senha      String
+  tipo       TipoUsuario
+  aluno      aluno?
+  professor  professor?
+  registro   registro[]
+
+  @@map("usuario")
+}
+
+model sala {
+  id_sala    Int        @id @default(autoincrement())
+  nome_sala  String
+  capacidade Int
+  registro   registro[]
+
+  @@map("sala")
+}
+
+model registro {
+  id_registro   Int      @id @default(autoincrement())
+  id_usuario    Int
+  id_sala       Int
+  data_registro DateTime @default(now())
+  inicio        DateTime
+  fim           DateTime
+  sala          sala     @relation(fields: [id_sala], references: [id_sala], onDelete: Cascade)
+  usuario       usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
+
+  @@map("registro")
+}
+
+model aluno {
+  id_aluno  Int     @id
+  matricula String
+  usuario   usuario @relation(fields: [id_aluno], references: [id_usuario], onDelete: Cascade)
+}
+
+model professor {
+  id_professor Int     @id
+  disciplina   String
+  usuario      usuario @relation(fields: [id_professor], references: [id_usuario], onDelete: Cascade)
+}
+
+enum TipoUsuario {
+  aluno
+  professor
+  coordenador
+  admin
+
+  @@map("TipoUsuario")
+}

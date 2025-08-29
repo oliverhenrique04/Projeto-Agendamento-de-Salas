@@ -1,0 +1,25 @@
+﻿# Node
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+
+# Build
+dist/
+build/
+coverage/
+
+# Env
+.env
+.env.local
+backend/.env
+frontend/.env
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Prisma
+prisma/dev.db*
+prisma/*.sqlite
